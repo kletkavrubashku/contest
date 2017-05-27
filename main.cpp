@@ -72,8 +72,8 @@ struct debug_time {
   ~debug_time() { IF_DEBUG( _str << "\n\033[31m" << "Elapsed time = " << duration_cast<milliseconds>(system_clock::now()-start).count() << "\033[0m"; ) }
  private: sep_ostream _str; time_point<system_clock> start;
 };
-#define TIMER debug_time l(sep_ostream(cout, ""));
-#define SLEEP IF_DEBUG(this_thread::sleep_for(chrono::milliseconds(2)));
+#define TIMER debug_time l(sep_ostream(cout, ""))
+#define SLEEP IF_DEBUG(this_thread::sleep_for(chrono::milliseconds(2)))
 // -------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------
