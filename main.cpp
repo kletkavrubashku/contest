@@ -35,6 +35,7 @@ templXY Y& operator<<(Y& str, const set<X>& vec) { for (auto& e: vec) str << e; 
 templXY Y& operator<<(Y& str, const list<X>& vec) { for (auto& e: vec) str << e; re str; }
 templXY Y& operator<<(Y& str, const deque<X>& vec) { for (auto& e: vec) str << e; re str; }
 templXYZ Z& operator<<(Z& str, const pair<X,Y>& p)  { str << p.fi << p.se; re str; }
+#define endl '\n'
 // sep_ostream --------------------------------------------------------------------
 struct sep { sep(string sep) : _(sep) {} string _; };
 struct sep_ostream {
@@ -61,10 +62,12 @@ struct debug_stream {
  private: sep_ostream _str;
 };
 #define dout debug_stream(sep_ostream(cout, " "))
-#define dout1(A) dout(#A) << A
-#define dout2(A, B) dout(#A", "#B) << A << B
-#define dout3(A, B, C) dout(#A", "#B", "#C) << A << B << C
-#define dout4(A, B, C, D) dout(#A", "#B", "#C", "#D) << A << B << C << D
+#define dout1(A) dout(#A) << A;
+#define dout2(A, B) dout(#A", "#B) << A << B;
+#define dout3(A, B, C) dout(#A", "#B", "#C) << A << B << C;
+#define dout4(A, B, C, D) dout(#A", "#B", "#C", "#D) << A << B << C << D;
+#define dout5(A, B, C, D, E) dout(#A", "#B", "#C", "#D", "#E) << A << B << C << D << E;
+#define dout6(A, B, C, D, E, F) dout(#A", "#B", "#C", "#D", "#E", "#F) << A << B << C << D << E << F;
 // time --------------------------------------------------------------------------
 using namespace chrono;
 struct debug_time {
@@ -72,14 +75,16 @@ struct debug_time {
   ~debug_time() { IF_DEBUG( _str << "\n\033[31m" << "Elapsed time = " << duration_cast<milliseconds>(system_clock::now()-start).count() << "\033[0m"; ) }
  private: sep_ostream _str; time_point<system_clock> start;
 };
-#define TIMER debug_time l(sep_ostream(cout, ""))
-#define SLEEP IF_DEBUG(this_thread::sleep_for(chrono::milliseconds(2)))
+#define TIMER debug_time l(sep_ostream(cout, ""));
+#define SLEEP IF_DEBUG(this_thread::sleep_for(chrono::milliseconds(2)));
 // -------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------
 
 int main()
 {
+  ios_base::sync_with_stdio(false);
+  cin.tie(nullptr);
   //IF_NOT_DEBUG( freopen("input.txt", "r", stdin); )
   //IF_NOT_DEBUG( freopen("out.txt", "w", stdout); )
 }
