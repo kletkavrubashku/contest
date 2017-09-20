@@ -28,6 +28,7 @@ using ldld = pair<ld, ld>;
 #define templX template <typename X>
 #define templXY template <typename X, typename Y>
 #define templXYZ template <typename X, typename Y, typename Z>
+#define templXYs template <typename X, typename... Ys>
 templX  istream& operator>>(istream& stream, vector<X>& vec) { for (auto& e: vec) stream >> e; re stream; }
 templXY istream& operator>>(istream& stream, pair<X, Y>& p)  { stream >> p.fi >> p.se; re stream; }
 templXY Y& operator<<(Y& str, const vector<X>& vec) { for (auto& e: vec) str << e; re str; }
@@ -57,17 +58,13 @@ struct debug_stream {
   debug_stream(sep_ostream str) : _str(str) { IF_DEBUG( str << "\033[34m"; ) }
   ~debug_stream() { IF_DEBUG( _str << "\033[0m" << endl; ) }
   templX debug_stream& operator<<(const X& a) { IF_DEBUG( _str << a; ) re *this; }
+  templX debug_stream& batch(const X& a) { IF_DEBUG( *this << a; ) re *this; }
+  templXYs debug_stream& batch(const X& a, const Ys&... b) { IF_DEBUG( *this << a; batch(b...); ) re *this; }
   debug_stream& operator<<(ostream& (*manip)(ostream&)) { IF_DEBUG( _str << manip; ) re *this; }
-  debug_stream& operator()(string pre) { IF_DEBUG( _str << pre << "="; ) re *this; }
  private: sep_ostream _str;
 };
 #define dout debug_stream(sep_ostream(cout, " "))
-#define dout1(A) dout(#A) << A;
-#define dout2(A, B) dout(#A", "#B) << A << B;
-#define dout3(A, B, C) dout(#A", "#B", "#C) << A << B << C;
-#define dout4(A, B, C, D) dout(#A", "#B", "#C", "#D) << A << B << C << D;
-#define dout5(A, B, C, D, E) dout(#A", "#B", "#C", "#D", "#E) << A << B << C << D << E;
-#define dout6(A, B, C, D, E, F) dout(#A", "#B", "#C", "#D", "#E", "#F) << A << B << C << D << E << F;
+#define doutX(...) dout.batch(#__VA_ARGS__" =", __VA_ARGS__);
 // time --------------------------------------------------------------------------
 using namespace chrono;
 struct debug_time {
