@@ -63,7 +63,7 @@ struct debug_stream {
   debug_stream& operator<<(ostream& (*manip)(ostream&)) { IF_DEBUG( _str << manip; ) re *this; }
  private: sep_ostream _str;
 };
-#define dout debug_stream(sep_ostream(cout, " "))
+#define dout debug_stream(sep_ostream(cout, "\t"))
 #define doutX(...) dout.batch(#__VA_ARGS__" =", __VA_ARGS__);
 // time --------------------------------------------------------------------------
 using namespace chrono;
