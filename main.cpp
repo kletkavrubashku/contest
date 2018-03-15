@@ -37,7 +37,7 @@ templXY Y& operator<<(Y& str, const list<X>& vec) { for (auto& e: vec) str << e;
 templXY Y& operator<<(Y& str, const deque<X>& vec) { for (auto& e: vec) str << e; re str; }
 templXYZ Z& operator<<(Z& str, const pair<X,Y>& p)  { str << p.fi << p.se; re str; }
 #define endl '\n'
-// sep_ostream --------------------------------------------------------------------
+// sep_ostream -------------------------------------------------------------------
 struct sep { sep(string sep) : _(sep) {} string _; };
 struct sep_ostream {
   sep_ostream(ostream& str, string sep) : _str(str), _sep(sep) {}
@@ -64,7 +64,7 @@ struct debug_stream {
  private: sep_ostream _str;
 };
 #define dout debug_stream(sep_ostream(cout, "\t"))
-#define doutX(...) dout.batch(#__VA_ARGS__" =", __VA_ARGS__);
+#define doutX(...) IF_DEBUG( dout.batch(#__VA_ARGS__" =", __VA_ARGS__) );
 // time --------------------------------------------------------------------------
 using namespace chrono;
 struct debug_time {
@@ -73,15 +73,15 @@ struct debug_time {
  private: sep_ostream _str; time_point<system_clock> start;
 };
 #define TIMER debug_time l(sep_ostream(cout, ""));
-#define SLEEP IF_DEBUG(this_thread::sleep_for(chrono::milliseconds(2)));
+#define SLEEP IF_DEBUG( this_thread::sleep_for(chrono::milliseconds(2)) );
 // -------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------
 
 int main()
 {
-  ios_base::sync_with_stdio(false);
-  cin.tie(nullptr);
+  IF_NOT_DEBUG( ios_base::sync_with_stdio(false) );
+  IF_NOT_DEBUG( cin.tie(nullptr) );
   //IF_NOT_DEBUG( freopen("input.txt", "r", stdin); )
   //IF_NOT_DEBUG( freopen("out.txt", "w", stdout); )
 }
